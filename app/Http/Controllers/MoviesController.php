@@ -17,10 +17,20 @@ class MoviesController extends Controller
 
 public function store(Request $request)
     {
+        $request->validate([
+            'title' => ['required|string'],
+            'director' => ['required|string'],
+            'duration' => ['required|intger|max:500'],
+            'imageUrl' => ['required|string|url|regex:/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/'],
 
+        ]);
+
+        // $movies = request()->validate();
 
 
         return Movie::create($request->all());
+
+
 
 
 
@@ -35,9 +45,17 @@ public function store(Request $request)
 
     public function update(Request $request, $id){
 
+        $request->validate([
+            'title' => ['required|string'],
+            'director' => ['required|string'],
+            'duration' => ['required|intger|max:500'],
+            'imageUrl' => ['required|string|url|regex:/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/'],
 
+        ]);
 
         Movie::where('id',$id)->update($request->all());
+
+
     }
 
     public function destroy($id){
